@@ -10,10 +10,9 @@ import java.util.List;
 public class Person {
 
 	/**
-	 * Учетные данные пользователя. Может быть пустым. Не может содержать двух одинаковых
-	 * учеток.
+	 * Учетные данные пользователя. Может быть пустым.
 	 */
-	private List<User> user;
+	private User user;
 	/**
 	 * Имя персоны. Не может быть null.
 	 */
@@ -36,11 +35,11 @@ public class Person {
 	 */
 	private final List<Contact> contacts = new ArrayList<Contact>();
 
-	public List<User> getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(List<User> user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 

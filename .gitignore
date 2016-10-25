@@ -2,3 +2,10 @@
 /.classpath
 /.project
 /.settings
+/.springBeans
+.DS_Store
+.idea/
+*.ipr
+*.iml
+*.iws
+*.log
