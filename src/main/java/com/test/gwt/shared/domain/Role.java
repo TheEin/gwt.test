@@ -1,36 +1,45 @@
 package com.test.gwt.shared.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import org.hibernate.annotations.DiscriminatorFormula;
 
 /**
  * Класс Роль - держит в себе список доступных данной роли действий. Доступ
- * EDIT_OWN_PERSON_DATA должен быть у любой роли по умолчанию. В последствии он может быть
- * забран пользователем с доступом EDIT_ROLES. 
+ * EDIT_OWN_PERSON_DATA должен быть у любой роли по умолчанию. В последствии он
+ * может быть забран пользователем с доступом EDIT_ROLES.
  */
-public abstract class Role {
+@Entity(name = "ARole")
+@Inheritance
+@DiscriminatorFormula("case when id > 0 then 'ADMIN' else 'CUSTOM' end")
+public abstract class Role implements Serializable {
 
-	/**
-	 * Имя роли. Уникальное значение. 
-	 */
-	private String name;
-	/**
-	 * Список доступных данной роли действий.
-	 */
-	private final List<Action> actions = new ArrayList<Action>();
+    public static final String ADMIN_ROLE = "ADMIN";
 
-	public abstract boolean hasAction(Action action);
+    public static final String CUSTOM_ROLE = "CUSTOM";
 
-	public List<Action> getActions() {
-		return actions;
-	}
+    @Id
+    @GeneratedValue
+    private Integer id;
 
-	public String getName() {
-		return name;
-	}
+    /**
+     * Имя роли. Уникальное значение.
+     */
+    @Column(unique = true)
+    private String name;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public abstract boolean hasAction(Action action);
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
 }
